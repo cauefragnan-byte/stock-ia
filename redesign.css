@@ -1,0 +1,44 @@
+/* STOCK IA · camada de redesign visual
+   Mantém os seletores e eventos existentes; altera apenas apresentação e responsividade. */
+:root{
+  --bg:#f6f8fb;--panel:#fff;--panel-soft:#f8fafc;--ink:#182230;--muted:#667085;
+  --line:#e4e9f0;--primary:#2563eb;--primary-soft:#eff6ff;--success:#0f9f6e;
+  --success-soft:#e8f8f1;--warning:#c87918;--warning-soft:#fff6e5;--danger:#d1435b;
+  --danger-soft:#fff0f2;--info:#3578a8;--shadow:0 10px 28px rgba(15,23,42,.06);
+  --radius:12px;--radius-sm:8px;--sans:'DM Sans',system-ui,sans-serif;--mono:'IBM Plex Mono',monospace;
+}
+html{background:var(--bg)}
+body{font-size:14px;letter-spacing:-.01em}
+.skip-link{position:fixed;left:16px;top:-60px;z-index:100;padding:10px 14px;border-radius:8px;background:var(--primary);color:#fff;font-weight:700;transition:top .2s}.skip-link:focus{top:16px}
+.sidebar{width:248px;padding:20px 12px;background:#101827;border-right:1px solid #1f2a3d;box-shadow:10px 0 30px rgba(15,23,42,.08)}
+.brand{padding:4px 11px;gap:10px}.brand-mark{width:34px;height:34px;border-radius:9px;background:#1d4ed8;box-shadow:none}.brand strong{font-size:17px}.brand small{letter-spacing:1.3px}
+.nav{margin-top:30px}.nav p{font-size:9px;letter-spacing:1.3px;color:#8190a7;padding:0 12px;margin:19px 0 7px}.nav-item{font-size:12px;padding:10px 12px;margin:2px 0;gap:11px;color:#aebbd0;border-radius:8px}.nav-item span{font-size:16px;color:#91a2bc}.nav-item:hover{background:#1a263a;color:#fff}.nav-item.active{background:#1d4ed8;box-shadow:none;color:#fff}.nav-item.active span{color:#fff}
+.nav-badge{background:#efb434;color:#352300;padding:3px 6px}.sidebar-foot{border-top-color:#25334a;padding:15px 9px 0}.sidebar-foot button{color:#b3c0d3}
+.main-content{margin-left:248px}.topbar{height:68px;padding:0 clamp(20px,3vw,44px);background:rgba(255,255,255,.94);border-bottom:1px solid var(--line);box-shadow:0 1px 0 rgba(15,23,42,.02)}
+.breadcrumbs{gap:10px}.breadcrumbs span{font-size:9px;letter-spacing:1.3px}.breadcrumbs strong{font-size:13px}.top-actions{gap:10px}.icon-btn{border-radius:9px;width:36px;height:36px}.profile-chip{padding:7px 10px;border:1px solid var(--line);border-radius:9px;background:var(--panel-soft)}
+.view-container{max-width:1480px;padding:30px clamp(20px,3vw,44px) 64px}.page-heading{margin-bottom:23px}.page-heading h1{font-size:26px;letter-spacing:-.8px}.page-heading p{font-size:12px;color:var(--muted)}
+.eyebrow{font-size:9px;letter-spacing:1.5px;color:var(--primary)}
+.panel,.metric-card,.insight-card,.rule-card,.form-panel{border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+.panel{padding:19px}.panel-head{margin-bottom:17px}.panel-head h3{font-size:14px}.panel-head p{font-size:10px}
+.metrics-grid{gap:12px;margin-bottom:18px}.metric-card{padding:17px}.metric-label{font-size:10px}.metric-card strong{font-size:25px;margin-top:13px}.metric-icon{width:30px;height:30px;border-radius:8px}
+.dashboard-grid,.dashboard-bottom,.risk-layout,.graph-layout{gap:14px}.bar-chart{height:170px}.category-list{gap:12px}
+.toolbar{padding:11px;border-radius:10px;box-shadow:none}.search-field,.toolbar select{background:#fff;border-color:var(--line)}
+.table-wrap{border-radius:10px}.table-wrap table{min-width:760px}th{font-size:9px;letter-spacing:.8px;padding:12px 14px}td{padding:13px 14px;font-size:11px}
+.btn{border-radius:8px;padding:9px 13px;font-size:11px}.btn.primary{background:var(--primary);box-shadow:none}.btn.secondary{background:#fff}.btn.danger{font-weight:700}
+.form-panel{padding:19px}.form-group{gap:5px}.form-group label{font-size:10px;color:#475467}.form-group input,.form-group select,.form-group textarea{border-radius:8px;background:#fff;padding:9px 10px}
+.pill,.risk-badge,.smart-status{font-size:9px;letter-spacing:.2px}
+.toast{border-radius:9px;box-shadow:0 10px 26px rgba(15,23,42,.15)}
+.modal{border-radius:14px;box-shadow:0 24px 70px rgba(15,23,42,.22)}.modal-backdrop,.ai-chat-backdrop{backdrop-filter:blur(3px)}
+.graph-panel{border-radius:12px}.graph-details{border-radius:12px}
+.business-card{box-shadow:var(--shadow)}.business-card:hover{box-shadow:0 14px 32px rgba(37,99,235,.12)}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid rgba(37,99,235,.28);outline-offset:2px}
+@media(max-width:800px){
+  .sidebar{width:270px}.main-content{margin-left:0}.topbar{height:62px;padding:0 16px}.view-container{padding:24px 16px 50px}
+  .nav{margin-top:32px}.page-heading h1{font-size:23px}.metrics-grid{gap:9px}.metric-card{padding:14px}
+}
+@media(max-width:560px){
+  .topbar{padding:0 13px}.view-container{padding:20px 12px 42px}.page-heading h1{font-size:22px}
+  .panel,.form-panel{padding:15px}.profile-chip{padding:7px}.dashboard-grid,.dashboard-bottom{gap:11px}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+@media(prefers-contrast:more){.panel,.metric-card,.toolbar,.form-panel{border-color:#64748b}.muted,.page-heading p{color:#475467}}
