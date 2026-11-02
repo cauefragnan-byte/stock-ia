@@ -9,6 +9,8 @@ body[data-theme="dark"]{--bg:#0e1524;--panel:#151f32;--panel-soft:#10192a;--ink:
 /* A navegação permanece fixa; somente a área de conteúdo rola. */
 .app-shell{height:100vh;min-height:0;overflow:hidden}
 .sidebar{position:fixed;inset:0 auto 0 0;height:100vh;overflow:hidden;z-index:25}
+.nav{min-height:0;overflow-y:auto;overflow-x:hidden;padding-bottom:8px}
+.sidebar-foot{flex-shrink:0}
 .main-content{margin-left:254px;height:100vh;overflow-y:auto}
 @media(min-width:801px){html,body{height:100%;overflow:hidden}}
 @media(max-width:800px){.app-shell{height:100vh;min-height:0;overflow:hidden}.sidebar{overflow:hidden}.main-content{margin-left:0;height:100vh;overflow-y:auto}}
