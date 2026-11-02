@@ -6,14 +6,14 @@
 
 /* O dashboard mostra o essencial primeiro; os mesmos dados continuam disponíveis
    nas telas de Produtos, Movimentações e Inteligência. */
-.view-dashboard .metrics-grid .metric-card:nth-child(4),
-.view-dashboard .dashboard-grid > .panel:nth-child(2),
-.view-dashboard .dashboard-bottom > .panel:nth-child(2){display:none}
-.view-dashboard .metrics-grid{grid-template-columns:repeat(3,minmax(0,1fr));max-width:780px}
-.view-dashboard .dashboard-grid{grid-template-columns:minmax(0,1fr);max-width:900px}
-.view-dashboard .dashboard-bottom{grid-template-columns:minmax(0,1fr);max-width:900px}
-.view-dashboard .bar-chart{height:145px}
-.view-dashboard .risk-widget{max-width:900px}
+#view-dashboard .metrics-grid .metric-card:nth-child(4),
+#view-dashboard .dashboard-grid > .panel:nth-child(2),
+#view-dashboard .dashboard-bottom > .panel:nth-child(2){display:none}
+#view-dashboard .metrics-grid{grid-template-columns:repeat(3,minmax(0,1fr));max-width:780px}
+#view-dashboard .dashboard-grid{grid-template-columns:minmax(0,1fr);max-width:900px}
+#view-dashboard .dashboard-bottom{grid-template-columns:minmax(0,1fr);max-width:900px}
+#view-dashboard .bar-chart{height:145px}
+#view-dashboard .risk-widget{max-width:900px}
 
 /* Menos ruído nas áreas secundárias: o texto de apoio não compete com o título. */
 .panel-head p{max-width:58ch;color:var(--muted)}
@@ -33,11 +33,11 @@
 .progressive-details[open] summary::after{content:'−'}
 
 @media(max-width:800px){
-  .view-dashboard .metrics-grid{grid-template-columns:repeat(3,minmax(0,1fr));max-width:none}
+  #view-dashboard .metrics-grid{grid-template-columns:repeat(3,minmax(0,1fr));max-width:none}
 }
 @media(max-width:560px){
-  .view-dashboard .metrics-grid{grid-template-columns:1fr}
-  .view-dashboard .metrics-grid .metric-card{display:grid;grid-template-columns:1fr auto;align-items:center;gap:4px 10px}
-  .view-dashboard .metrics-grid .metric-card .metric-top{grid-column:1/-1}
-  .view-dashboard .metrics-grid .metric-card strong{margin-top:0}
+  #view-dashboard .metrics-grid{grid-template-columns:1fr}
+  #view-dashboard .metrics-grid .metric-card{display:grid;grid-template-columns:1fr auto;align-items:center;gap:4px 10px}
+  #view-dashboard .metrics-grid .metric-card .metric-top{grid-column:1/-1}
+  #view-dashboard .metrics-grid .metric-card strong{margin-top:0}
 }
