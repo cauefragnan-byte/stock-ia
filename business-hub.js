@@ -17,3 +17,16 @@ function renderBusinessHub(){
 const renderAllBeforeBusiness=renderAll;
 renderAll=function(){renderAllBeforeBusiness();renderBusinessHub()};
 renderAll();
+
+/* Delegação em fase de captura: cards e itens de navegação continuam ativos
+   mesmo quando uma tela é reconstruída dinamicamente. */
+document.addEventListener('click',function(event){
+  const target=event.target.closest('[data-view]');
+  if(!target)return;
+  event.preventDefault();
+  event.stopImmediatePropagation();
+  app.view=target.dataset.view;
+  renderAll();
+  $('#sidebar')?.classList.remove('open');
+  $('#scrim')?.classList.remove('visible');
+},true);
