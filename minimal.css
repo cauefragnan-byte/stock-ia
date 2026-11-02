@@ -32,6 +32,16 @@
 .progressive-details summary::after{content:'＋';float:right;color:var(--muted)}
 .progressive-details[open] summary::after{content:'−'}
 
+.logistics-map{background:linear-gradient(145deg,#f8fbff,#eef4f8);border-radius:12px}
+.logistics-map .route-path{fill:none;stroke:#4c83c3;stroke-width:2;stroke-dasharray:7 6;opacity:.7}
+.logistics-marker{cursor:pointer;outline:none}
+.logistics-marker .marker-halo{fill:#fff;stroke:#d8e5f2;stroke-width:2}
+.logistics-marker .marker-dot{fill:#2563eb;stroke:#fff;stroke-width:2}
+.logistics-marker:hover .marker-halo,.logistics-marker:focus .marker-halo{stroke:#2563eb;stroke-width:3}
+.logistics-marker text{font-size:10px;fill:#334155;font-weight:700;paint-order:stroke;stroke:#fff;stroke-width:3px;stroke-linejoin:round}
+.map-route-key{display:inline-flex;align-items:center;gap:6px}.map-route-key i{display:inline-block;width:22px;border-top:2px dashed #4c83c3}
+.delivery-highlight{display:flex;flex-direction:column;gap:4px;margin:16px 0;padding:13px 14px;border:1px solid #bfdbfe;border-radius:10px;background:#eff6ff;color:#1e3a8a}.delivery-highlight strong{font-size:14px}.delivery-highlight span{font-size:12px;color:#315b91}
+
 @media(max-width:800px){
   #view-dashboard .metrics-grid{grid-template-columns:repeat(3,minmax(0,1fr));max-width:none}
 }
