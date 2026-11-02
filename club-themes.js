@@ -18,12 +18,15 @@ const clubThemes=[
 const clubById=id=>clubThemes.find(c=>c.id===id)||clubThemes[0];
 function renderClubSettings(){
   const current=clubById(app.theme), view=$('#view-settings');if(!view)return;
+  view.querySelector('.settings-grid > .panel:first-child')?.remove();
+  view.querySelector('.club-theme-panel')?.remove();
   const panel=`<section class="panel club-theme-panel"><div class="panel-head"><div><h3>Identidade do clube</h3><p>Escolha uma paleta para personalizar o STOCK IA. A seleção fica salva neste navegador.</p></div><span class="club-active-label"><i></i>${current.name}</span></div><div class="club-theme-grid">${clubThemes.map(c=>`<button class="club-theme-card ${current.id===c.id?'active':''}" data-club-theme="${c.id}" aria-pressed="${current.id===c.id}">${c.logo?`<img class="club-crest-img" src="${c.logo}" alt="Escudo do ${c.name}">`:`<span class="club-crest" style="--crest:${c.primary};--crest-soft:${c.soft}">${c.short}</span>`}<span><strong>${c.name}</strong><small>${c.description}</small></span>${current.id===c.id?'<b class="club-check">✓</b>':''}</button>`).join('')}</div><small class="club-source-note">Escudos locais em PNG/SVG; Fluminense preserva o arquivo já existente no projeto.</small></section>`;
   view.insertAdjacentHTML('afterbegin',panel);
 }
 function applyClubTheme(id,notify=true){
-  const club=clubById(id);app.theme=club.id;StockStorage.saveTheme(club.id);document.body.dataset.theme=club.id;renderSettings();renderClubSettings();if(notify)toast(`${club.name} ativado.`);
+  const club=clubById(id);app.theme=club.id;StockStorage.saveTheme(club.id);document.body.dataset.theme=club.id;updateClubBrand(club);renderSettings();if(notify)toast(`${club.name} ativado.`);
 }
+function updateClubBrand(club=clubById(app.theme)){const logo=$('#clubBrandLogo'),mark=$('.brand-mark');if(!logo||!mark)return;if(club.id==='light'){logo.style.display='none';mark.style.display='grid';return}logo.src=club.logo||'assets/fluminense-logo.png';logo.alt=`Escudo do ${club.name}`;logo.style.display='block';mark.style.display='none'}
 const setThemeBeforeClubs=setTheme;
 setTheme=function(id){applyClubTheme(id)};
 const renderSettingsBeforeClubs=renderSettings;
@@ -32,3 +35,4 @@ document.addEventListener('click',e=>{const card=e.target.closest('[data-club-th
 const renderAllBeforeClubs=renderAll;
 renderAll=function(){renderAllBeforeClubs()};
 renderAll();
+updateClubBrand();
