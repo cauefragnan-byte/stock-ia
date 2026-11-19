@@ -76,3 +76,23 @@ node server.js
 ```
 
 Sem `OPENAI_API_KEY`, os insights proativos continuam funcionando localmente, mas o chat informa que a IA precisa ser configurada — nenhuma resposta fixa substitui uma consulta à OpenAI. A chave nunca é enviada ao frontend; o navegador chama apenas `POST /api/ai`.
+
+## Publicação do backend no Render
+
+1. Crie um **Web Service** conectado a este repositório.
+2. Use a raiz do repositório como `Root Directory`.
+3. Configure o ambiente como Node e use Node.js 20 (definido em `package.json`).
+4. Use `npm install` como Build Command e `npm start` como Start Command.
+5. Cadastre no Render, sem commitar no Git:
+
+```text
+OPENAI_API_KEY=sua_chave
+OPENAI_MODEL=gpt-4o-mini
+CORS_ORIGIN=https://cauefragnan-byte.github.io
+```
+
+O Render fornece `PORT` automaticamente. A rota `GET /health` confirma o estado do serviço sem revelar a chave. A leitura de PDF digital usa `pdf-parse`; PDF escaneado usa OCR pela API de respostas da OpenAI quando `OPENAI_API_KEY` está configurada.
+
+O arquivo `render.yaml` contém a mesma configuração para publicação por Blueprint.
+
+Depois de obter a URL do Render, defina `window.STOCK_IA_API_BASE` em `api-config.js` para essa URL. O mesmo endereço é usado pela Entrada Inteligente e pelo chat, enquanto o uso local continua funcionando com valor vazio.

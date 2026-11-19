@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: stock-ia-backend
+    runtime: node
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: OPENAI_MODEL
+        value: gpt-4o-mini
+      - key: CORS_ORIGIN
+        value: https://cauefragnan-byte.github.io
