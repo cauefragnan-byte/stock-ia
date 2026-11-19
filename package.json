@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "pdf-parse": "^1.1.1",
+    "pdfjs-dist": "^4.8.69",
     "tesseract.js": "^5.1.0"
   }
 }
