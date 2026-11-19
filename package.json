@@ -12,6 +12,7 @@
     "check": "node --check server.js && node --check invoice-intake.js"
   },
   "dependencies": {
-    "pdf-parse": "^1.1.1"
+    "pdf-parse": "^1.1.1",
+    "tesseract.js": "^5.1.0"
   }
 }
