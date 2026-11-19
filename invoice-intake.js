@@ -2,6 +2,7 @@ const invoiceState={file:null,items:[]};
 const invoiceHistoryKey='stock-ia-invoices-v1';
 const invoiceHistory=()=>JSON.parse(localStorage.getItem(invoiceHistoryKey)||'[]');
 const saveInvoiceHistory=v=>localStorage.setItem(invoiceHistoryKey,JSON.stringify(v));
+window.resetInvoiceData=()=>{invoiceState.file=null;invoiceState.items=[];localStorage.removeItem(invoiceHistoryKey)};
 const invoiceMoney=v=>new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'}).format(Number(v)||0);
 const invoiceApiUrl=()=>window.stockApiUrl?window.stockApiUrl('/api/invoice/parse'):`${String(window.STOCK_IA_API_BASE||'https://stock-ia-backend.onrender.com').replace(/\/$/,'')}/api/invoice/parse`;
 function invoiceMatch(item){const code=String(item.sku||item.barcode||'').toLowerCase();return app.data.products.find(p=>code&&(String(p.sku).toLowerCase()===code||String(p.barcode||'').toLowerCase()===code))||app.data.products.find(p=>p.name.toLowerCase()===String(item.description||'').toLowerCase())}
