@@ -1,21 +1,17 @@
-/* Todas as decisões do sistema passam por estas funções booleanas. */
+/* Motor único das decisões booleanas do STOCK IA. 1 = verdadeiro; 0 = falso. */
+const bool = value => Boolean(value) ? 1 : 0;
 window.BooleanRules = {
-  productCanBeSold: (p) => p.active && p.stock > 0,
-  stockLow: (p) => p.stock <= p.minStock,
-  outOfStock: (p) => p.stock === 0,
-  generateAlert: (p) => p.active && p.stock <= p.minStock,
-  allowRestock: (p) => p.stock <= p.minStock && p.supplierActive,
-  recommendPurchase: (p) => p.stock <= p.minStock && p.salesHigh && p.supplierActive,
-  critical: (p) => p.active && (p.stock === 0 || p.stock <= p.minStock),
-  excess: (p) => p.stock > p.maxStock,
-  nearMinimum: (p) => p.stock > p.minStock && p.stock <= p.minStock * 1.25,
-  normal: (p) => p.stock > p.minStock && p.stock <= p.maxStock
+  variables(p = {}, overrides = {}) { const stock=Number(overrides.stock ?? p.stock ?? 0), active=overrides.active ?? p.active, supplierActive=overrides.supplierActive ?? p.supplierActive, salesHigh=overrides.salesHigh ?? p.salesHigh; return {A:bool(active),B:bool(stock<=Number(p.minStock??0)),C:bool(supplierActive),D:bool(salesHigh),stock,availableStock:bool(stock>0)}; },
+  evaluate(p = {}, overrides = {}) { const v=this.variables(p,overrides), A=Boolean(v.A),B=Boolean(v.B),C=Boolean(v.C),D=Boolean(v.D); return {variables:v,generateAlert:A&&B,recommendPurchase:B&&C&&D,needsReview:!A||B,productCanBeSold:A&&v.stock>0,allowRestock:B&&C,critical:A&&(v.stock===0||B),excess:v.stock>Number(p.maxStock??0)}; },
+  productCanBeSold:p=>Boolean(BooleanRules.evaluate(p).productCanBeSold), stockLow:p=>Number(p.stock||0)<=Number(p.minStock||0), outOfStock:p=>Number(p.stock||0)===0, generateAlert:p=>Boolean(BooleanRules.evaluate(p).generateAlert), allowRestock:p=>Boolean(BooleanRules.evaluate(p).allowRestock), recommendPurchase:p=>Boolean(BooleanRules.evaluate(p).recommendPurchase), needsReview:p=>Boolean(BooleanRules.evaluate(p).needsReview), critical:p=>Boolean(BooleanRules.evaluate(p).critical), excess:p=>Boolean(BooleanRules.evaluate(p).excess), nearMinimum:p=>Number(p.stock||0)>Number(p.minStock||0)&&Number(p.stock||0)<=Number(p.minStock||0)*1.25, normal:p=>Number(p.stock||0)>Number(p.minStock||0)&&Number(p.stock||0)<=Number(p.maxStock||0)
 };
-window.BooleanRuleCatalog = [
-  { key:'productCanBeSold', title:'Produto pode ser vendido', formula:'Produto ativo AND estoque > 0', code:'produtoAtivo && estoqueAtual > 0', help:'O item precisa estar ativo e possuir pelo menos uma unidade.' },
-  { key:'generateAlert', title:'Gerar alerta', formula:'Estoque baixo AND produto ativo', code:'produtoAtivo && estoqueAtual <= estoqueMinimo', help:'Um alerta é criado quando o estoque chega ao mínimo.' },
-  { key:'allowRestock', title:'Permitir reposição', formula:'Estoque baixo AND fornecedor ativo', code:'estoqueAtual <= estoqueMinimo && fornecedorAtivo', help:'A reposição só é recomendada quando existe fornecedor disponível.' },
-  { key:'recommendPurchase', title:'Recomendar compra', formula:'Estoque baixo AND vendas altas AND fornecedor ativo', code:'estoqueBaixo && historicoDeVendasAlto && fornecedorAtivo', help:'Combina três sinais reais para priorizar uma compra.' },
-  { key:'critical', title:'Situação crítica', formula:'Ativo AND (sem estoque OR estoque baixo)', code:'produtoAtivo && (estoqueAtual === 0 || estoqueAtual <= estoqueMinimo)', help:'Diferencia produtos que exigem atenção imediata.' },
-  { key:'excess', title:'Produto em excesso', formula:'Estoque atual > estoque máximo', code:'estoqueAtual > estoqueMaximo', help:'Identifica capital parado acima do limite planejado.' }
+window.BooleanRuleCatalog=[
+ {key:'generateAlert',title:'Gerar alerta',formula:'A ∧ B',code:'produtoAtivo && estoqueBaixo',help:'Verdadeiro quando o produto está ativo e o estoque está no mínimo ou abaixo dele.'},
+ {key:'recommendPurchase',title:'Recomendar compra',formula:'B ∧ C ∧ D',code:'estoqueBaixo && fornecedorAtivo && historicoDeVendasAlto',help:'Verdadeiro quando os três sinais reais indicam prioridade de reposição.'},
+ {key:'needsReview',title:'Necessidade de revisão',formula:'¬A ∨ B',code:'!produtoAtivo || estoqueBaixo',help:'Verdadeiro quando o produto está inativo ou apresenta estoque baixo.'},
+ {key:'productCanBeSold',title:'Produto disponível para venda',formula:'A ∧ (estoqueAtual > 0)',code:'produtoAtivo && estoqueAtual > 0',help:'Verdadeiro somente com produto ativo e pelo menos uma unidade disponível.'},
+ {key:'allowRestock',title:'Permitir reposição',formula:'B ∧ C',code:'estoqueBaixo && fornecedorAtivo',help:'Indica que há estoque baixo e fornecedor ativo para atender a reposição.'},
+ {key:'critical',title:'Situação crítica',formula:'A ∧ (semEstoque ∨ estoqueBaixo)',code:'produtoAtivo && (semEstoque || estoqueBaixo)',help:'Sinaliza um produto ativo que precisa de atenção imediata.'},
+ {key:'excess',title:'Produto em excesso',formula:'estoqueAtual > estoqueMaximo',code:'estoqueAtual > estoqueMaximo',help:'Identifica estoque acima do limite máximo planejado.'}
 ];
+window.BooleanTruthTables={and:[[0,0,0],[0,1,0],[1,0,0],[1,1,1]],or:[[0,0,0],[0,1,1],[1,0,1],[1,1,1]],not:[[0,1],[1,0]]};
