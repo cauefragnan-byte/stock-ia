@@ -1,6 +1,6 @@
 /* Temas de clubes: identidade local, persistente e sem dependência de imagens externas. */
 const clubThemes=[
-  {id:'light',name:'Padrão',short:'ST',primary:'#2563eb',soft:'#eff6ff',sidebar:'#101827',description:'Interface neutra'},
+  {id:'light',name:'Padrão',short:'ST',logo:'assets/stock-ia-logo.png',primary:'#2563eb',soft:'#eff6ff',sidebar:'#101827',description:'Interface neutra'},
   {id:'flu',name:'Fluminense',short:'FLU',logo:'assets/fluminense-logo.png',primary:'#006b42',soft:'#e5f2ec',sidebar:'#5d1729',description:'Verde, grená e branco'},
   {id:'flamengo',name:'Flamengo',short:'FLA',logo:'assets/club-logos/flamengo.png',primary:'#c8102e',soft:'#fff0f2',sidebar:'#1d1d1f',description:'Rubro-negro'},
   {id:'palmeiras',name:'Palmeiras',short:'PAL',logo:'assets/club-logos/palmeiras.png',primary:'#006437',soft:'#e7f5ed',sidebar:'#123b2a',description:'Verde e branco'},
@@ -26,7 +26,7 @@ function renderClubSettings(){
 function applyClubTheme(id,notify=true){
   const club=clubById(id);app.theme=club.id;StockStorage.saveTheme(club.id);document.body.dataset.theme=club.id;updateClubBrand(club);renderSettings();if(notify)toast(`${club.name} ativado.`);
 }
-function updateClubBrand(club=clubById(app.theme)){const logo=$('#clubBrandLogo'),mark=$('.brand-mark');if(!logo||!mark)return;if(club.id==='light'){logo.style.display='none';mark.style.display='grid';return}logo.src=club.logo||'assets/fluminense-logo.png';logo.alt=`Escudo do ${club.name}`;logo.style.display='block';mark.style.display='none'}
+function updateClubBrand(club=clubById(app.theme)){const logo=$('#clubBrandLogo'),mark=$('.brand-mark');if(!logo||!mark)return;logo.src=club.logo||'assets/stock-ia-logo.png';logo.alt=club.id==='light'?'Logo do STOCK IA':`Escudo do ${club.name}`;logo.style.display='block';mark.style.display='none'}
 const setThemeBeforeClubs=setTheme;
 setTheme=function(id){applyClubTheme(id)};
 const renderSettingsBeforeClubs=renderSettings;
